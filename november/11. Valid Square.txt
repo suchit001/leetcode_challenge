@@ -1,0 +1,24 @@
+class Solution {
+public:
+    float dist(vector<int>& p1,vector<int>& p2)
+    {
+        return sqrt(pow((p1[0]-p2[0]),2)+pow((p1[1]-p2[1]),2));
+    }
+    bool validSquare(vector<int>& p1, vector<int>& p2, vector<int>& p3, vector<int>& p4) {
+        map<float,int> pairdist;
+        pairdist[dist(p1,p2)]++;
+        pairdist[dist(p1,p3)]++;
+        pairdist[dist(p1,p4)]++;
+        pairdist[dist(p2,p3)]++;
+        pairdist[dist(p2,p4)]++;
+        pairdist[dist(p3,p4)]++;
+        if(pairdist.size()==2)
+        {
+            auto v1=pairdist.begin();
+            auto v2=pairdist.rbegin();
+            if((v1->second==4&&v2->second==2)||(v1->second==2&&v2->second==4))
+                return true;
+        }
+        return false;
+    }
+};
