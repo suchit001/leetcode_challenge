@@ -1,0 +1,88 @@
+class Solution {
+public:
+    bool isnum(char s)
+    {
+        if(s<58&&s>=48)
+        {
+            return true;
+        }
+        return false;
+    }
+    string callfn(int start,int end, string s)
+    {
+        string ans,temp;
+        int num=0;
+        for(int i=start+1;i<end;i++)
+        {
+            if(s[i]=='[')
+            {
+                int num = 0;
+                int nump=i-1;
+                int mul=1;
+                while(nump>=0&&isnum(s[nump]))
+                {
+                    num+=((s[nump]-48)*mul);
+                    nump--;
+                    mul*=10;
+                }
+                int start=i;
+                i++;
+                int ob=1;
+                while(ob!=0)
+                {
+                    if(s[i]=='[')
+                        ob++;
+                    else if(s[i]==']')
+                        ob--;
+                    i++;
+                }
+                while(num--)
+                    ans+=callfn(start,i,s);
+                i--;
+            }
+            else if(!(s[i]>=48&&s[i]<=57)&&s[i]!=']')
+            {
+                ans+=s[i];
+            }
+        }
+        return ans;
+    }
+    
+    string decodeString(string s) {
+        string ans,temp;
+        for(int i=0;i<s.length();i++)
+        {
+            if(s[i]=='[')
+            {
+                int num = 0;
+                int nump=i-1;
+                int mul=1;
+                while(nump>=0&&isnum(s[nump]))
+                {
+                    num+=((s[nump]-48)*mul);
+                    nump--;
+                    mul*=10;
+                }
+                int start=i;
+                i++;
+                int ob=1;
+                while(ob!=0)
+                {
+                    if(s[i]=='[')
+                        ob++;
+                    else if(s[i]==']')
+                        ob--;
+                    i++;
+                }
+                while(num--)
+                    ans+=callfn(start,i,s);
+                i--;
+            }
+            else if(!(s[i]>=48&&s[i]<=57)&&s[i]!=']')
+            {
+                ans+=s[i];
+            }
+        }
+        return ans;
+    }
+};
