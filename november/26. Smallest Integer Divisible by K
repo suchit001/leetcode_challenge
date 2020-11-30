@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int smallestRepunitDivByK(int K) {
+            ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+        if(K%2==0)
+            return -1;
+        set<int> s;
+        int rem=0,n=1,ans=0;
+        do{
+            rem=(rem*10)+1;
+            rem = rem % K;
+            ans++;
+            if(s.find(rem)==s.end())
+                s.insert(rem);
+            else
+                return -1;
+        }while(rem!=0);
+        return ans;
+    }
+};

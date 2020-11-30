@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int n;
+    bool canReach(vector<int>& arr, int start) {
+        n=arr.size();
+        vector<int> v(n,0);
+        return rec(arr,start,v);
+    }
+    bool rec(vector<int> arr,int cur,vector<int> v)
+    {
+        if(cur<0||cur>n-1)
+            return false;
+        else if(arr[cur]==0)
+            return true;
+        else if(v[cur])
+            return false;
+        else
+        {
+            v[cur]=1;
+            return rec(arr,cur-arr[cur],v)||rec(arr,cur+arr[cur],v);
+        }
+            
+    }
+};
+
+//2ND SOLN - using the same function
+
+class Solution {
+public:
+    set<int> s;
+    bool canReach(vector<int>& arr, int start) {
+        if(start<0||start>arr.size()-1)
+            return false;
+        else if(arr[start]==0)
+            return true;
+        else if(s.find(start)!=s.end())
+            return false;
+        else
+        {
+            s.insert(start);
+            return (canReach(arr,start-arr[start])||canReach(arr,start+arr[start]));
+        }
+    }
+};
